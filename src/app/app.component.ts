@@ -1,13 +1,21 @@
+import { slideInAnimation } from './route-animation';
 import { environment } from './../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivationStart } from '@angular/router';
 
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [slideInAnimation]
 })
+
+
+
 
 export class AppComponent implements OnInit {
 

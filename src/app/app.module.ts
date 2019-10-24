@@ -10,6 +10,7 @@ import { NotFoundPageComponent } from './core/not-found-page/not-found-page.comp
 import { FooterComponent } from './core/footer/footer.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HeaderComponent } from './core/header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { HeaderComponent } from './core/header/header.component';
     HeaderComponent,
   ],
   imports: [
+
+    BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

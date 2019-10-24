@@ -1,12 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 @import "theme/variables";
 
+@font-face {
+  font-family: 'OpenSans';
+  src:
+    url('assets/Sans/OpenSans-Bold.ttf') format('ttf'),
+    url('assets/Sans/OpenSans-BoldItalic.ttf') format('ttf'),
+    url('assets/Sans/OpenSans-ExtraBold.ttf') format('ttf'),
+    url('assets/Sans/OpenSans-ExtraBoldItalic.ttf') format('ttf'),
+    url('assets/Sans/OpenSans-Italic.ttf') format('ttf'),
+    url('assets/Sans/OpenSans-Light.ttf') format('ttf'),
+    url('assets/Sans/OpenSans-LightItalic.ttf') format('ttf'),
+    url('assets/Sans/OpenSans-Regular.ttf') format('ttf'),
+    url('assets/Sans/OpenSans-SemiBold.ttf') format('ttf'),
+    url('assets/Sans/OpenSans-SemiBoldItalic.ttf') format('ttf'),
+}
+
 body {
   max-width: 1200px;
   margin: auto;
-  font-family: $primary__text__family;
+  font-family: "OpenSans";
 }
-
 
 h1 {
   text-align: center;

@@ -10,19 +10,20 @@ const routes: Routes = [
   {
     path: '',
     component: ContactPageComponent,
-    data: { title: 'Contacts' }
+    data: { title: 'Contacts', animation: 'contacts' },
+
   },
   {
     path: 'profile',
     children: [
       {
         path: 'new',
-        data: { title: 'New Profile' },
+        data: { title: 'New Profile', animation: 'newProfile' },
         component: NewContactComponent,
       },
       {
         path: 'details/:id',
-        data: { title: 'Profile Details' },
+        data: { title: 'Profile Details', animation: 'details' },
         component: EditContactComponent
       }
     ]
