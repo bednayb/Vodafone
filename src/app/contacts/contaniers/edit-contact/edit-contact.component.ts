@@ -58,8 +58,6 @@ export class EditContactComponent implements OnInit, OnDestroy {
 
     // Contact
     this.contactSub = this.contactService.contact.subscribe(contact => {
-      console.log(contact);
-
       this.contact = contact;
       // Set contact data when data is ready
       if (this.contact) {
@@ -74,7 +72,6 @@ export class EditContactComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/contact');
         return;
       } else {
-        console.log('loading');
         if (environment.IS_LOCAL_DATABASE) {
           this.contactService.localSearchContactList(+paramMap.get('id'));
 

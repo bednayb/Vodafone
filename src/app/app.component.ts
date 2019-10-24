@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivationStart } from '@angular/router';
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   constructor(
     private titleService: Title,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.setTitle();

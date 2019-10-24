@@ -14,12 +14,6 @@ export class ErrorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (this.error) {
-      console.log(this.error.status);
-      console.log(this.error.statusText);
-    }
-
-
   }
 
 }
