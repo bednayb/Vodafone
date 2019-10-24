@@ -1,0 +1,32 @@
+[
+  {
+    "name": "sample1",
+    "email": "sample1@gmail.com",
+    "phone": "+365551234"
+  },
+  {
+    "name": "ample2",
+    "email": "sample2@gmail.com",
+    "phone": "+365551235"
+  },
+  {
+    "name": "gample3",
+    "email": "sample3@gmail.com",
+    "phone": "+365551236"
+  },
+  {
+    "name": "sample4",
+    "email": "sample4@gmail.com",
+    "phone": "+365551237"
+  },
+  {
+    "name": "bample5",
+    "email": "sample5@gmail.com",
+    "phone": "+365551238"
+  },
+  {
+    "name": "bample6",
+    "email": "sample6@gmail.com",
+    "phone": "+365551239"
+  }
+]

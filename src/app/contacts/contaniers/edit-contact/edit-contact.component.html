@@ -1,0 +1,65 @@
+<app-error *ngIf="error" [error]='error'></app-error>
+
+
+<div *ngIf="contact; else notExist">
+  <h1>{{contact.name}}'s Profile</h1>
+  <!-- READONLY PROFILE -->
+  <div class="read__only__profile" *ngIf="!editAble; else editForm">
+    <div class="read__only__block">
+      <label>Name:</label>
+      <p>{{contact.name}}</p>
+    </div>
+    <div class="read__only__block">
+      <label>Email:</label>
+      <p>{{contact.email}}</p>
+    </div>
+    <div class="read__only__block">
+      <label>Phone:</label>
+      <p [ngClass]="{ 'error': !isValidPhone(contact.phone)}">{{contact.phone}}</p>
+    </div>
+    <div class="button__container">
+      <button class="warning" (click)="delete()">Delete</button>
+      <button (click)="editAble = true">Edit</button>
+    </div>
+
+  </div>
+
+
+  <!-- EDIT -->
+  <ng-template #editForm>
+    <form class="form" [formGroup]="form" (ngSubmit)="save()">
+      <label>Name</label>
+      <input type="text" placeholder="Enter Name" formControlName="name" name="name">
+      <p class="error" *ngIf="form.get('name').hasError('required') && form.get('name').dirty">
+        Name is required
+      </p>
+      <label>Email</label>
+      <input type="email" placeholder="Enter Email" formControlName="email" name="email">
+      <p class="error" *ngIf="form.get('email').hasError('required') && form.get('email').dirty">
+        Email is required
+      </p>
+      <p class="error" *ngIf="form.get('email').hasError('email') && form.get('email').dirty">
+        Not valid email
+      </p>
+
+      <label>Phone</label>
+      <input type="text" placeholder="Enter Phone" formControlName="phone" name="phone">
+      <p class="error" *ngIf="form.get('phone').hasError('invalidPhone') && form.get('phone').dirty">
+        Not valid format. Phone number must contains + and 10 or 11 numbers. Example: +1234567891
+      </p>
+
+      <button [disabled]="form.invalid" type="submit">
+        Save Contact
+      </button>
+    </form>
+  </ng-template>
+</div>
+
+<ng-template #notExist>
+  <div class="not__exist">
+    <h1>User not exist</h1>
+    <a routerLink="/contacts">
+      <button>Go to Contact Page</button>
+    </a>
+  </div>
+</ng-template>

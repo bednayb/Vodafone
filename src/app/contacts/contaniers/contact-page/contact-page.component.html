@@ -1,0 +1,18 @@
+<app-search></app-search>
+
+<h1>Contacts</h1>
+
+<app-first-letter-filter (activeFirstLetter)="filterListByFirstLetter($event)"></app-first-letter-filter>
+
+<app-contact-list *ngIf="filteredContactList?.length !== 0; else emptyList" [contactList]="filteredContactList">
+</app-contact-list>
+
+<ng-template #emptyList>
+  <h1>Empty list</h1>
+</ng-template>
+
+<div class="go__new__contact">
+  <a routerLink="profile/new">
+    +
+  </a>
+</div>

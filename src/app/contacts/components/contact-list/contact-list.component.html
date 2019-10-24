@@ -1,0 +1,7 @@
+<div *ngIf="contactList">
+  <div class="row card-list">
+    <div class="col-md-4 col-sm-6" *ngFor="let contact of contactList">
+      <app-card [contact]='contact'></app-card>
+    </div>
+  </div>
+</div>

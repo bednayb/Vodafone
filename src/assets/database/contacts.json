@@ -1,0 +1,50 @@
+[
+  {
+    "id": 21212,
+    "name": "sddsf",
+    "email": "sample22@gmail.com",
+    "phone": "+365551235"
+  },
+  {
+    "id": 233,
+    "name": "jozsi",
+    "email": "sample3@gmail.com",
+    "phone": "+365551236"
+  },
+  {
+    "id": 54325,
+    "name": "bample5",
+    "email": "sample5@gmail.com",
+    "phone": "+365551238"
+  },
+  {
+    "id": 527821,
+    "name": "bample6",
+    "email": "sample6@gmail.com",
+    "phone": "+365551239"
+  },
+  {
+    "email": "adfsfds@a.hu",
+    "name": "benci",
+    "phone": "+2323",
+    "id": 61095
+  },
+  {
+    "email": "sss@gmail.com",
+    "name": "benci",
+    "phone": "202060557",
+    "id": 71532
+  },
+  {
+    "email": "fdf@gmail.com",
+    "name": "Bence Bednay",
+    "phone": "+202060557",
+    "id": 52782
+  },
+  {
+    "email": "asdf@gmail.com",
+    "name": "Sample",
+    "phone": "+202060557",
+    "id": 95058
+  }
+]

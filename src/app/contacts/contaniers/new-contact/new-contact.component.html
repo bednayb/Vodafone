@@ -1,0 +1,27 @@
+<h1>Add New Contact</h1>
+
+<form class="form" [formGroup]="form" (ngSubmit)="save()">
+  <label>Name</label>
+  <input type="text" placeholder="Enter Name" formControlName="name" name="name">
+  <p class="error" *ngIf="form.get('name').hasError('required') && form.get('name').dirty">
+    Name is required
+  </p>
+  <label>Email</label>
+  <input type="email" placeholder="Enter Email" formControlName="email" name="email">
+  <p class="error" *ngIf="form.get('email').hasError('required') && form.get('email').dirty">
+    Email is required
+  </p>
+  <p class="error" *ngIf="form.get('email').hasError('email') && form.get('email').dirty">
+    Not valid email
+  </p>
+
+  <label>Phone</label>
+  <input type="text" placeholder="Enter Phone" formControlName="phone" name="phone">
+  <p class="error" *ngIf="form.get('phone').hasError('invalidPhone') && form.get('phone').dirty">
+    Not valid format. Phone number must contains + and 10 or 11 numbers. Example: +1234567891
+  </p>
+
+  <button [disabled]="form.invalid" type="submit">
+    Add Contact
+  </button>
+</form>

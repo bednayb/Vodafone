@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+@import "theme/variables";
+
+body {
+  max-width: 1200px;
+  margin: auto;
+  font-family: $primary__text__family;
+}
+
+
+h1 {
+  text-align: center;
+}
+
+label {
+  font-size: 16px;
+  color: $label__text__color;
+}
+
+// Button
+button {
+  background: $primary__button__background__color;
+  color: $primary__button__text__color;
+  height: 44px;
+  padding: 5px 25px;
+  font-size: 18px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  border: 1px solid $primary__button__text__color;
+  border-radius: 4px;
+  margin: 5px 15px;
+}
+
+button:disabled {
+  opacity: 0.3;
+}
+
+
+/* Input */
+input,
+select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 12px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: $primary__input__text__color;
+}
+
+
+// FORM
+.form {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    margin: 30px auto;
+  }
+
+}
+
+// Error
+
+.error {
+  color: red;
+}
+
+
+
+.warning {
+  color: $warning__button__text__color;
+  border-color: $warning__button__text__color;
+}

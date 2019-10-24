@@ -1,0 +1,5 @@
+<div class="first__letter__container">
+  <h2 [class.active]="selectedIndex === i" (click)="selectFirstLetter(letter, i)"
+    *ngFor="let letter of firstLetters; let i = index">
+    {{letter | uppercase}}</h2>
+</div>

@@ -1,0 +1,41 @@
+// primary --> general
+// secondary --> important
+// warning --> dangerous
+
+/* Font family */
+$primary__text__family: 'sans-serif',
+'roboto';
+
+/* Footer */
+$footer__background__color: #A6A6A6;
+
+
+/***** BUTTON *****/
+
+/* Background */
+$primary__button__background__color: #FFFFFF;
+$warning__button__background__color: #FFFFFF;
+
+/* Text and Border */
+$primary__button__text__color: #4a4a4a;
+$warning__button__text__color: #FF0000;
+
+/* Hover */
+$primary__button__hover__color: #2a2a2a;
+
+
+/* Focus */
+$primary__button__focus__color: #2a2a2a;
+
+
+/* Disabled */
+$primary__button__disabled__color: #C0C0C0;
+
+
+
+/***** INPUT *****/
+$primary__input__text__color: #7e7777;
+
+
+/***** Text *****/
+$label__text__color: #C0B7B7;
