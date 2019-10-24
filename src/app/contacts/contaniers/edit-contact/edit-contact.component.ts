@@ -54,14 +54,13 @@ export class EditContactComponent implements OnInit, OnDestroy {
     // Error
     this.errorSub = this.contactService.error.subscribe(errorMessage => {
       this.error = errorMessage;
-      console.log(this.error);
     });
 
     // Contact
     this.contactSub = this.contactService.contact.subscribe(contact => {
-      this.contact = contact;
-      console.log(this.contact);
+      console.log(contact);
 
+      this.contact = contact;
       // Set contact data when data is ready
       if (this.contact) {
         this.contactInit(this.contact);
@@ -78,6 +77,7 @@ export class EditContactComponent implements OnInit, OnDestroy {
         console.log('loading');
         if (environment.IS_LOCAL_DATABASE) {
           this.contactService.localSearchContactList(+paramMap.get('id'));
+
         } else {
           this.contactService.searchContact(paramMap.get('id'));
         }
@@ -97,13 +97,26 @@ export class EditContactComponent implements OnInit, OnDestroy {
     this.contact.name = this.form.value.name;
     this.contact.email = this.form.value.email;
     this.contact.phone = this.form.value.phone;
-    // TODO: save
-    this.contactService.updateContact(this.contact);
+
+    if (this.isLocalDatabase) {
+      this.contactService.updateLocalContact(this.contact);
+      this.router.navigateByUrl('contacts');
+    } else {
+      this.contactService.updateContact(this.contact);
+      this.router.navigateByUrl('contacts');
+    }
+
   }
 
   delete() {
-    console.log('delete called');
-    this.contactService.deleteContact(this.contact.id.toString());
+    if (this.isLocalDatabase) {
+      this.contactService.deleteLocalContact(this.contact.id);
+      this.router.navigateByUrl('contacts');
+    } else {
+      this.contactService.deleteContact(this.contact.id.toString());
+      this.router.navigateByUrl('contacts');
+    }
+
   }
 
   isValidPhone(phone: string): boolean {
@@ -118,6 +131,10 @@ export class EditContactComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.contactSub.unsubscribe();
+  }
+
+  get isLocalDatabase(): boolean {
+    return environment.IS_LOCAL_DATABASE;
   }
 
 

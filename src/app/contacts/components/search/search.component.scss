@@ -1,0 +1,18 @@
+@media only screen and (max-width: 576px) {
+  .input__container {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 577px) {
+  .input__container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  input {
+    max-width: 300px;
+    margin-right: 20px;
+  }
+}

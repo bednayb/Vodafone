@@ -53,25 +53,27 @@ select {
 }
 
 
+
 // FORM
 .form {
   display: flex;
   flex-direction: column;
+  margin: auto;
+  width: 90%;
 
   button {
     margin: 30px auto;
   }
-
 }
 
-// Error
 
+// Error
 .error {
   color: red;
 }
 
 
-
+// WARNING
 .warning {
   color: $warning__button__text__color;
   border-color: $warning__button__text__color;

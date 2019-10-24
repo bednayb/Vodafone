@@ -9,19 +9,29 @@ import { catchError, map } from 'rxjs/operators';
 
 export class ContactService {
 
+  /* IMPORTANT: For local mode contact list loaded just once */
+  isLoadedOnce = false;
+
+
   constructor(
     private http: HttpClient
   ) {
     // Filter
     this._filterText.subscribe(() => {
-      this.searchContactList(this._filterText.value);
+      if (!this.isLoadedOnce) {
+        this.searchContactList();
+      }
+      this.filter(this._filterText.value);
+    });
+
+    this.contactList.subscribe(() => {
+      this.filter(this._filterText.value);
     });
   }
 
 
   // Error
   error = new Subject<string>();
-
 
   // Filter
   private _filterText = new BehaviorSubject<string>('');
@@ -34,11 +44,17 @@ export class ContactService {
     this._filterText.next(text);
   }
 
-
   // ContactList
   private _contactList = new BehaviorSubject<Contact[]>([]);
   get contactList() {
     return this._contactList.asObservable();
+  }
+
+  // Filtered ContactList
+  private _filteredContactList = new BehaviorSubject<Contact[]>([]);
+
+  get filteredContactList() {
+    return this._filteredContactList.asObservable();
   }
 
   // Contact
@@ -53,18 +69,19 @@ export class ContactService {
   }
 
 
-  public searchContactList(filterText?: string) {
-
+  public searchContactList() {
     const path = environment.IS_LOCAL_DATABASE ? environment.LOCAL_DATABASE : environment.SERVER_DATABASE;
-
-    // search is not check letter case
-    filterText = filterText ? filterText.toLowerCase() : '';
 
     return this.http.get(path).pipe(
       map(contactList => contactList as Contact[]),
       map(contactList => {
-        const filteredContact = filterText ? contactList.filter(x => x.name.toLocaleLowerCase().indexOf(filterText) !== -1) : contactList;
+
+        const filteredContact =
+          this._filterText.value ? contactList.filter(x =>
+            x.name.toLocaleLowerCase().indexOf(this._filterText.value.toLocaleLowerCase()) !== -1) : contactList;
+
         this._contactList.next(filteredContact);
+        this.filter(this._filterText.value);
 
         this.updateFirstLetter(filteredContact);
       }),
@@ -82,10 +99,15 @@ export class ContactService {
       );
   }
 
+  filter(filterText?: string) {
+    const filteredContactList = filterText ? this._contactList.value.filter(x => x.name.toLocaleLowerCase().indexOf(filterText.toLocaleLowerCase()) !== -1) : this._contactList.value;
+    this._filteredContactList.next(filteredContactList);
+
+    this.updateFirstLetter(this._filteredContactList.value);
+  }
+
   searchContact(id: string) {
     const path = environment.SERVER_DATABASE + `/${id}`;
-
-    // SERVER DATABASE
     return this.http.get(path).pipe(
       map(contact => contact as Contact),
       map(contact => {
@@ -120,7 +142,6 @@ export class ContactService {
       case 'PUT':
         return this.http.put(path, body).pipe(
           map(x => {
-            console.log(x);
             this.refreshList();
           })
         ).subscribe();
@@ -142,7 +163,6 @@ export class ContactService {
     const path = environment.SERVER_DATABASE + `/${id}`;
     return this.http.delete(path).pipe(
       map(x => {
-        console.log(x);
         this.refreshList();
       })
     ).subscribe(
@@ -155,10 +175,9 @@ export class ContactService {
 
   updateFirstLetter(filteredContact: Contact[]): void {
     const firstLetters = [];
-
     filteredContact.forEach(contact => {
       if (!firstLetters.includes(contact.name[0].toLocaleLowerCase())) {
-        firstLetters.push(contact.name[0]);
+        firstLetters.push(contact.name[0].toLocaleLowerCase());
       }
     });
     this._contactFirstLetters.next(firstLetters);
@@ -169,27 +188,69 @@ export class ContactService {
   }
 
 
+  // ******************** LOCAL ********************//
+
   // LOCAL SEARCH CONTACT
   public localSearchContactList(id: number) {
 
     const path = environment.LOCAL_DATABASE;
+    // if it's the first call the list hasn't been loaded
+    if (!this.isLoadedOnce) {
+      this.isLoadedOnce = true;
 
-    return this.http.get(path).pipe(
-      map(contactList => contactList as Contact[]),
-      map(contactList => {
-        const filteredContact = contactList.find(x => x.id === id);
-        this._contact.next(filteredContact);
-      }),
-      catchError(errorRes => {
-        // Send to analytics server
-        return throwError(errorRes);
-      })
-    )
-      .subscribe(
-        contact => contact,
-        error => {
-          this.error.next(error.message);
-        }
-      );
+      return this.http.get(path).pipe(
+        map(contactList => contactList as Contact[]),
+        map(contactList => {
+          const filteredContact = contactList.find(x => x.id === id);
+          this._contact.next(filteredContact);
+        }),
+        catchError(errorRes => {
+          // Send to analytics server
+          return throwError(errorRes);
+        })
+      )
+        .subscribe(
+          contact => contact,
+          error => {
+            this.error.next(error.message);
+          }
+        );
+    } else {
+
+      const filteredContact = this._contactList.value.find(x => x.id === id);
+
+
+      this._contact.next(filteredContact);
+    }
+
   }
+
+  // LOCAL DELETE
+  public deleteLocalContact(id: number): void {
+    const listAfterDelete = this._contactList.value.filter(contact => contact.id !== id);
+    this._contactList.next(listAfterDelete);
+
+  }
+
+  // LOCAL UPDATE
+  public updateLocalContact(contact: Contact): void {
+    const updatedContactList = this._contactList.value;
+    for (let i = 0; i < updatedContactList.length; i++) {
+      if (contact.id === updatedContactList[i].id) {
+        updatedContactList[i] = contact;
+        break;
+      }
+    }
+    this._contactList.next(updatedContactList);
+  }
+
+
+  // LOCAL NEW
+  public addLocalContact(contact: Contact) {
+    const addedContactList = this._contactList.value;
+    addedContactList.push(contact);
+    this._contactList.next(addedContactList);
+  }
+
+
 }

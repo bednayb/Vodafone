@@ -21,7 +21,7 @@ export class ContactPageComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.contactSub = this.contactService.contactList.subscribe(contactList => {
+    this.contactSub = this.contactService.filteredContactList.subscribe(contactList => {
       this.contactList = contactList;
       // set copy for first letter filters
       this.filteredContactList = [...this.contactList];

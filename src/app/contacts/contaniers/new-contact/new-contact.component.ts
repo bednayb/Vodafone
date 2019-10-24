@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { PhoneValidador } from './../../../shared/validators/phone.validator';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -55,7 +56,14 @@ export class NewContactComponent implements OnInit, OnDestroy {
     this.contact = this.form.value;
     this.contact.id = this.setId();
 
-    this.contactService.newContact(this.contact);
+    if (environment.IS_LOCAL_DATABASE) {
+      this.contactService.addLocalContact(this.contact);
+      this.router.navigateByUrl('contacts');
+    } else {
+      this.contactService.newContact(this.contact);
+      this.router.navigateByUrl('contacts');
+    }
+
   }
 
   private setId(): number {
