@@ -2,7 +2,7 @@
 
 
 <div *ngIf="contact; else notExist">
-  <h1>{{contact.name}}'s Profile</h1>
+  <h1 class="page__title">{{contact.name}}'s Profile</h1>
   <!-- READONLY PROFILE -->
   <div class="read__only__profile" *ngIf="!editAble; else editForm">
     <div class="read__only__block">

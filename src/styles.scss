@@ -92,3 +92,22 @@ select {
   color: $warning__button__text__color;
   border-color: $warning__button__text__color;
 }
+
+// OTHER
+.page__title {
+  margin: 0 0 10px;
+  padding: 0 0 4px;
+  position: relative;
+}
+
+.page__title::after {
+  background-color: red;
+  bottom: 0;
+  content: '';
+  display: block;
+  height: 3px;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, 0);
+  width: 50px;
+}
