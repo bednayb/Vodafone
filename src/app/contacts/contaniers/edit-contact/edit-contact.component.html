@@ -4,16 +4,16 @@
 <div *ngIf="contact; else notExist">
   <h1 class="page__title">{{contact.name}}'s Profile</h1>
   <!-- READONLY PROFILE -->
-  <div class="read__only__profile" *ngIf="!editAble; else editForm">
-    <div class="read__only__block">
+  <div class="profile" *ngIf="!editAble; else editForm">
+    <div class="data__block">
       <label>Name:</label>
       <p>{{contact.name}}</p>
     </div>
-    <div class="read__only__block">
+    <div class="data__block">
       <label>Email:</label>
       <p>{{contact.email}}</p>
     </div>
-    <div class="read__only__block">
+    <div class="data__block">
       <label>Phone:</label>
       <p [ngClass]="{ 'error': !isValidPhone(contact.phone)}">{{contact.phone}}</p>
     </div>
@@ -27,30 +27,38 @@
 
   <!-- EDIT -->
   <ng-template #editForm>
-    <form class="form" [formGroup]="form" (ngSubmit)="save()">
-      <label>Name</label>
-      <input type="text" placeholder="Enter Name" formControlName="name" name="name">
-      <p class="error" *ngIf="form.get('name').hasError('required') && form.get('name').dirty">
-        Name is required
-      </p>
-      <label>Email</label>
-      <input type="email" placeholder="Enter Email" formControlName="email" name="email">
-      <p class="error" *ngIf="form.get('email').hasError('required') && form.get('email').dirty">
-        Email is required
-      </p>
-      <p class="error" *ngIf="form.get('email').hasError('email') && form.get('email').dirty">
-        Not valid email
-      </p>
+    <form class="profile" [formGroup]="form" (ngSubmit)="save()">
+      <div class="data__block">
+        <label>Name:</label>
+        <input type="text" placeholder="Enter Name" formControlName="name" name="name">
+        <p class="error" *ngIf="form.get('name').hasError('required') && form.get('name').dirty">
+          Name is required
+        </p>
+      </div>
+      <div class="data__block">
+        <label>Email:</label>
+        <input type="email" placeholder="Enter Email" formControlName="email" name="email">
+        <p class="error" *ngIf="form.get('email').hasError('required') && form.get('email').dirty">
+          Email is required
+        </p>
+        <p class="error" *ngIf="form.get('email').hasError('email') && form.get('email').dirty">
+          Not valid email
+        </p>
+      </div>
+      <div class="data__block">
+        <label>Phone:</label>
+        <input type="text" placeholder="Enter Phone" formControlName="phone" name="phone">
+        <p class="error" *ngIf="form.get('phone').hasError('invalidPhone') && form.get('phone').dirty">
+          Not valid format. Phone number must contains + and 10 or 11 numbers. Example: +1234567891
+        </p>
+      </div>
+      <div class="data__block">
+        <label></label>
+        <button [disabled]="form.invalid" type="submit">
+          Save Contact
+        </button>
+      </div>
 
-      <label>Phone</label>
-      <input type="text" placeholder="Enter Phone" formControlName="phone" name="phone">
-      <p class="error" *ngIf="form.get('phone').hasError('invalidPhone') && form.get('phone').dirty">
-        Not valid format. Phone number must contains + and 10 or 11 numbers. Example: +1234567891
-      </p>
-
-      <button [disabled]="form.invalid" type="submit">
-        Save Contact
-      </button>
     </form>
   </ng-template>
 </div>

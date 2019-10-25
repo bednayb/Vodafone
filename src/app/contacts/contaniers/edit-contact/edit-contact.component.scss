@@ -3,21 +3,25 @@
   text-align: center;
 }
 
-.read__only__profile {
+.profile {
   display: flex;
   flex-direction: column;
   margin: auto;
-  width: 100%;
-  max-width: 250px;
-
+  width: 90%;
+  max-width: 350px;
 }
 
-.read__only__block {
+.data__block {
   display: flex;
 
   label {
     text-align: right;
     margin-right: 30px;
+    min-width: 50px;
+  }
+
+  button {
+    margin: 20px 0px;
   }
 }
 
